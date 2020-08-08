@@ -1,9 +1,9 @@
-first use the pip command to install the libraries:
+Make a heroku app and connect this repository to it (fork this repository first)
 
-pip install adafruit-circuitpython-seesaw
+run rasp.py on your raspberry pi
 
-and then run the main.py
+use the following command for the camera on the raspberry pi:
+raspivid -n -t 0 -w 1920 -h 1080 -fps 30 -b 3500000 -g 60 -o - | ffmpeg -f lavfi -i anullsrc -c:a aac -r 30 -i - -g 60 -strict experimental -threads 4 -vcodec copy -map 0:a -map 1:v -b:v 3500000 -preset ultrafast -f flv "rtmp://live-ams02.twitch.tv/app/YOUR_TWITCH_KEY"
 
-also for the camera, connect and run this script but fill the data of a twitch acc so u actually stream to it:
-
-https://gist.github.com/russfeld/0878b1f8eaf7409136b9125ce5e1458f
+to see the sensoe=r data, install heroku CLI, login and use this command:
+heroku logs -a YOUR_APP_NAME -s app -t
